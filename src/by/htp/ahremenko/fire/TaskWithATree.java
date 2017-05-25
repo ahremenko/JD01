@@ -27,6 +27,16 @@ public class TaskWithATree {
             			response = "Check and type correct params for adding.";
             		}
             	}
+            	
+            	if (commandLine.toUpperCase().contains("GET")) {
+            		try {            		 
+	            		response = commandLine.substring(commandLine.indexOf(' ')+1);
+	            		Integer y = Integer.parseInt(response);
+          				response = aSet.getAsString(aSet.root, y);
+            		} catch (StringIndexOutOfBoundsException|NumberFormatException e) {
+            			response = "Check and type correct params for adding.";
+            		}
+            	}
             	if (commandLine.toUpperCase().contains("SHOW")) {
             		response = "Current list: " + aSet.toString();
             	}
@@ -34,7 +44,7 @@ public class TaskWithATree {
             		response = "Size: " + aSet.getSize();
             	}
             	if (commandLine.toUpperCase().contains("?")) {
-            		response = "Allowed commands:\nADD [key]\nSHOW\nSIZE\nEXIT";
+            		response = "Allowed commands:\nADD [key]\nGET [key]\nSHOW\nSIZE\nEXIT";
             	}
         	} catch (Exception e) {
         		response = e.getMessage();

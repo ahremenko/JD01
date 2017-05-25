@@ -20,10 +20,6 @@ public class ATreeSet {
 		} else {
 			sb.append(this.root.toString());
 		}	
-		// todo - add getNext() 
-		//for (int i=0; i<this.size; i++) {
-		//	sb.append(elements[resizeIterationCounter][i].toString());
-		//}
 		return sb.toString();
 	}
 	
@@ -47,6 +43,36 @@ public class ATreeSet {
 		}
 		// if k = parent.key - skip adding
 		return parent;
+	}
+
+	public String getAsString(Node parent, int k) {
+		Node findedNode = null;
+		findedNode =get(parent, k); 
+		if (findedNode != null ) {
+			return findedNode.toString();
+		} else {
+			return "Node [" + k + "] not found!";
+		}			
+	}
+	
+	public Node get(Node parent, int k) {
+		
+		if (parent == null ) {
+			return null;
+		}
+		
+		if (parent.key == k ) {
+			return parent;
+		}
+
+		Node ret = null;
+		// find out - left or right side of tree will be used
+		if (k < parent.key) {
+			ret = get (parent.left, k);
+		} else if (k > parent.key) {
+			ret = get (parent.right, k);
+		}
+		return ret;
 	}
 	
 	class Node {
