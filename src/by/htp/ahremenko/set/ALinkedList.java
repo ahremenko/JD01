@@ -1,14 +1,24 @@
 package by.htp.ahremenko.set;
 
+import by.htp.ahremenko.set.ATreeSet.Node;
+
 public class ALinkedList<T> {
-	public Node<T> first;
-	public Node<T> last;
+	private Node<T> first;
+	private Node<T> last;
 	private int size;
 	
 	public ALinkedList() {
 		size = 0;
 	}
 	
+	public Node<T> getFirst() {
+		return first;
+	}
+
+	public Node<T> getLast() {
+		return last;
+	}
+
 	public Node<T> addLast (T newEntity) {
 		Node<T> newNode = new Node(newEntity);
 		
@@ -23,18 +33,84 @@ public class ALinkedList<T> {
 		size++;
 		return newNode;
 	}
-			
+
+	public Node<T> addFirst (T newEntity) {
+		Node<T> newNode = new Node(newEntity);
+		
+		if (first == null) {
+			this.first = newNode;
+			this.last = newNode;
+		} else {
+			this.first.prev = newNode;
+			newNode.next = first;
+			this.first = newNode;
+		}
+		size++;
+		return newNode;
+	}
+
+	public Node<T> get(Node<T> currentNode, T seekingEntity) {
+		Node<T> foundedNode = new Node(seekingEntity);
+		
+		if (currentNode == null)
+			return null;
+		if (currentNode.equals(foundedNode))
+			return currentNode;
+		else 
+			return get(currentNode.next, seekingEntity);
+	}
+	
+	public String getAsString (Node<T> currentNode, T seekingEntity) {
+		Node findedNode = null;
+		findedNode = get(currentNode, seekingEntity); 
+		if (findedNode != null ) 
+			return findedNode.toStringOneEntity();
+		else 
+			return "Node [" + seekingEntity.toString() + "] not found!";
+	}
+	
+	public Node<T> addAfter (T afterEntity, T newEntity) {
+		Node<T> newNode = null;
+		Node<T> afterNode = get (first, afterEntity);
+		if (afterNode != null && afterNode.next != null) {
+				newNode = new Node(newEntity);
+				Node<T> tmpNode = afterNode.next;
+				newNode.next = afterNode.next;
+				newNode.prev = afterNode;
+				afterNode.next = newNode;
+				tmpNode.prev = newNode;
+		} else // if not found or afterNode is Last - insert into the end 
+			newNode = addLast(newEntity);
+		size++;
+		return newNode;
+	}
+	
+	public boolean delete (T deletedEntity) {
+		Node<T> deletedNode = get (first, deletedEntity);
+		if (deletedNode != null) {
+			Node<T> prevNode = deletedNode.prev;
+			Node<T> nextNode = deletedNode.next;
+			if ( prevNode != null ) {
+				prevNode.next = deletedNode.next; 
+			}
+			if ( nextNode != null ) {
+				nextNode.prev = deletedNode.prev; 
+			}
+			size--;
+			return true;
+		} else
+			return false;
+	}
+	
 	public int getSize() {
 		return this.size;
 	}
 	
 	public String toString() {
-		if (first == null) {
+		if (first == null) 
 			return "";
-		} else {
-			return first.toShortString(); // + first.next.toShortString();
-		}
-		
+		else 
+			return first.toString(); 
 	}
 	
 	class Node<T> {
@@ -49,22 +125,36 @@ public class ALinkedList<T> {
 		}
 		
 		public String toString() {
-			if (ent != null) {
-			   return " { prev: " + (this.prev==null ? "" : prev.toShortString()) + " [" + ent.toString() +"] " + "Next: " + (this.next == null ? "" : next.toShortString()) + " } ";
-			} else {
-   			   return "";
-			}
-		}
-		
-		public String toShortString() {
 			StringBuilder sb = new StringBuilder();
-			sb.append(" [" + (this.ent == null ? "" : ent.toString()) +"] ");
-			if (next != null) {
-				sb.append(next.toShortString());
-			}
+			sb.append(" [" + (ent == null ? "" : ent.toString()) +"] ");
+			if (next != null) 
+				sb.append(next.toString());
 			return sb.toString();
 		}
+
+		public String toStringOneEntity() {
+			return (prev == null ? "" : prev.ent.toString()) + "-[" + (ent == null ? "" : ent.toString()) +"]-" + (next == null ? "" : next.ent.toString());
+		}
 		
+		@Override
+		public int hashCode() {
+			final int prime = 73;
+			int result = 1;
+			result = prime * result + ((this.ent == null) ? 0 : this.ent.hashCode());
+			return result;
+		}
+		
+		public boolean equals(Node<T> comparedNode) {
+			if (this == comparedNode)
+				return true;
+			if (comparedNode == null)
+				return false;			
+			if (getClass() != comparedNode.getClass())
+				return false;
+			if (!this.ent.equals(comparedNode.ent))
+				return false;
+			return true;			
+		}
 	}
 	
 }
