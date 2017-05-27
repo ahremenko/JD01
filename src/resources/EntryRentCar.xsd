@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+        targetNamespace="http://www.htp.by/ahremenko/EntryRentCar" 
+        xmlns:tns="http://www.htp.by/ahremenko/EntryRentCar" elementFormDefault="qualified">
+        
+        <element name="cars">
+        	<complexType>
+        		<sequence>
+        			<element name="car" type="tns:Car" minOccurs="1" maxOccurs="unbounded" />
+        		</sequence>
+        	</complexType>
+        </element>
+        
+        <complexType name="Car">
+        	<sequence>
+        		<element name="model" type="string" />
+        		<element name="modelType" type="string" />
+        		<element name="yearManufactured" type="int" />
+        		<element name="carCase" type="string" />
+        		<element name="rentPricePerDay" type="int" />
+        	</sequence>
+        	<attribute name="id" type="int" use="required" />
+        </complexType>
+</schema>

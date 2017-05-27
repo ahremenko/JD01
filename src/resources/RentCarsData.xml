@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cars>
+	<car id = "1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EntryRentCar.xsd">
+		<model2>Toyota</model2>
+		<modelType>IQ</modelType>
+		<carCase>HATCHBACK</carCase>
+		<yearManufactured>2016</yearManufactured>
+		<rentPricePerDay>45</rentPricePerDay>>
+	</car>
+	<car id = "2">
+		<model>Honda</model>
+		<modelType>Insight</modelType>
+		<carCase>HATCHBACK</carCase>
+		<yearManufactured>2015</yearManufactured>
+		<rentPricePerDay>38</rentPricePerDay>>
+	</car>
+</cars>
