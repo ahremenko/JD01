@@ -113,7 +113,7 @@ public class ALinkedList<T> {
 			return first.toString(); 
 	}
 	
-	class Node<T> {
+	public class Node<T> {
 		public Node<T> next;
 		public Node<T> prev;
 		private T ent;
