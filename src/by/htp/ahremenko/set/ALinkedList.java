@@ -101,6 +101,19 @@ public class ALinkedList<T> {
 		} else
 			return false;
 	}
+
+	public String getFirstAndDelete () {
+		String ret = null; 
+		if (first != null) {
+			ret = this.first.toStringOneEntity();
+			Node<T> nodeWillBeFirst = first.next;
+			nodeWillBeFirst.prev = null;
+			this.first = nodeWillBeFirst;
+			size--;
+		}
+		return ret;
+	}
+	
 	
 	public int getSize() {
 		return this.size;
@@ -133,7 +146,8 @@ public class ALinkedList<T> {
 		}
 
 		public String toStringOneEntity() {
-			return (prev == null ? "" : prev.ent.toString()) + "-[" + (ent == null ? "" : ent.toString()) +"]-" + (next == null ? "" : next.ent.toString());
+			//return (prev == null ? "" : prev.ent.toString()) + "-[" + (ent == null ? "" : ent.toString()) +"]-" + (next == null ? "" : next.ent.toString());
+			return ( (ent == null ? "" : ent.toString()) );
 		}
 		
 		@Override
