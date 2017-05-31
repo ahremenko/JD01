@@ -26,9 +26,5 @@ public class TaskWithThreads {
 		
 		car1.start();
 		car2.start();
-		
-		
-
 	}
-
 }

@@ -54,7 +54,7 @@ public class CargoTruck extends Thread {
             	System.out.println("Stage " + i + ": - Truck #" + carNumber + " puts on warehouse: " + Fruit + ". Warehouse size: " + carWH.getStored());            	
             };
 			try {
-				Thread.sleep(500);
+				Thread.sleep(randomAction);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
