@@ -5,15 +5,15 @@ import by.htp.ahremenko.threads.Warehouse;
 
 public class TaskWithThreads {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		Warehouse wh = new Warehouse();
 		String[] Fruits = {"Orange", "Banana", "Strawberry", "Grapes", "Pomegranate", "Watermelon"};
 		
-		wh.putFruit(Fruits[1]);
-		wh.putFruit(Fruits[3]);
+		//wh.putFruit(Fruits[1]);
+		//wh.putFruit(Fruits[3]);
 		
-		System.out.println("On warehouse: " + wh.toString());
+		System.out.println("On warehouse: " + wh.toString() + " size: " + wh.getStored());
 		
 		CargoTruck car1 = new CargoTruck();
 		CargoTruck car2 = new CargoTruck();

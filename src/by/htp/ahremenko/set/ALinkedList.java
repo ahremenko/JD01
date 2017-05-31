@@ -103,12 +103,16 @@ public class ALinkedList<T> {
 	}
 
 	public String getFirstAndDelete () {
-		String ret = null; 
+		String ret = ""; 
 		if (first != null) {
 			ret = this.first.toStringOneEntity();
-			Node<T> nodeWillBeFirst = first.next;
-			nodeWillBeFirst.prev = null;
-			this.first = nodeWillBeFirst;
+			if (first.next != null) {
+				Node<T> nodeWillBeFirst = first.next;
+				nodeWillBeFirst.prev = null;
+				this.first = nodeWillBeFirst;
+			} else {
+				this.first = null;
+			}
 			size--;
 		}
 		return ret;

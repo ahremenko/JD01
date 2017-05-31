@@ -5,8 +5,8 @@ import by.htp.ahremenko.set.ALinkedList.Node;
 
 public class Warehouse {
 	/// jenkov.com - java memory model
-	private ALinkedList<String> allowedFruits;
-	private int stored;
+	private volatile ALinkedList<String> allowedFruits;
+	private volatile int stored;
 	
 	
 	public int getStored() {
@@ -18,12 +18,12 @@ public class Warehouse {
 		this.stored = 0;
 	}
 	
-	public void putFruit (String newFruit) {
+	public synchronized void putFruit (String newFruit) {
 		allowedFruits.addLast(newFruit);
 		this.stored = allowedFruits.getSize(); 
 	}
 	
-	public String getFruit () {
+	public synchronized String getFruit () {
 		String ret = "";
 		if (allowedFruits.getSize() > 0) ret = allowedFruits.getFirstAndDelete();
 		this.stored = allowedFruits.getSize();
