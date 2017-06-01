@@ -94,12 +94,12 @@ public class CargoTruck extends Thread {
     		Fruit = carWH.getSpecFruit(wantedFruit, "Stage #" + i + " Truck  #" + this.carNumber);
     	else
     		Fruit = carWH.getFruit("Stage #" + i + " Truck  #" + this.carNumber);
- 	    System.out.println("Stage " + i + " result: Truck  #" + this.carNumber + " gets: " + Fruit + ". Warehouse size: " + carWH.getStored() + ", in warehouse: " + carWH.toString());
+ 	    System.out.println("Stage " + i + ". Truck  #" + this.carNumber + " gets: " + Fruit + ". Warehouse {" + carWH.getStored() + "}: " + carWH.toString());
 	}
 
 	public void putFruitInWarehouse( int i, String Fruit) {
     	carWH.putFruit(Fruit, "Stage #" + i + " Truck  #" + this.carNumber );
-    	System.out.println("Stage " + i + " result: Truck  #" + this.carNumber + " puts on warehouse: " + Fruit + ". Warehouse size: " + carWH.getStored() + ", in warehouse: " + carWH.toString());            	
+    	System.out.println("Stage " + i + ". Truck  #" + this.carNumber + " puts: " + Fruit + ". Warehouse {" + carWH.getStored() + "}: " + carWH.toString());            	
 	}
 	
 

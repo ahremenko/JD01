@@ -11,7 +11,7 @@ public class Warehouse {
 	
 	private volatile ALinkedList<String> allowedFruits;
 	private volatile int stored;
-	private final int WH_MAX_SIZE = 500;
+	private final int WH_MAX_SIZE = 5;
 	
 	public int getStored() {
 		return stored;
@@ -27,8 +27,8 @@ public class Warehouse {
 			try {
 				wait();
 				System.out.println("You were riched MAX_SIZE. Please, wait... [" + info + "]");
-			} catch (InterruptedException e) {}            		
-		}	
+			} catch (InterruptedException e) {e.printStackTrace();}            		
+		}
 		allowedFruits.addLast(newFruit);
 		this.stored = allowedFruits.getSize();
 		notify();
@@ -69,7 +69,6 @@ public class Warehouse {
 		ret = wantedFruit;
 		return ret;
 	}
-	
 	
 	@Override
 	public String toString() {

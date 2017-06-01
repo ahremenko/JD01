@@ -18,15 +18,15 @@ public class TaskWithThreads {
 		
 		//wh.getSpecFruit(Fruits[3]+"2", "");
 		
-		System.out.println("In warehouse: " + wh.toString() + " size: " + wh.getStored());
+		System.out.println("Warehouse {" + wh.getStored() + "} : " + wh.toString() );
 		
-		CargoTruck car1 = new CargoTruck(wh, "AA-1");
+		CargoTruck car1 = new CargoTruck(wh, "AnyAction");
 		
-		CargoTruck car2 = new CargoTruck(wh, "BB-2");
+		CargoTruck car2 = new CargoTruck(wh, "Consumer-Ban");
 		car2.setWantedFruit(CargoTruck.Fruits[1]);
 		car2.setCargoType("CONSUMER");
 		
-		CargoTruck car3 = new CargoTruck(wh, "CC-3");
+		CargoTruck car3 = new CargoTruck(wh, "Producer-Ban");
 		car3.setWantedFruit(CargoTruck.Fruits[1]);
 		car3.setCargoType("PRODUCER");
 		

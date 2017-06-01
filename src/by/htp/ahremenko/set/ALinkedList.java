@@ -91,11 +91,13 @@ public class ALinkedList<T> {
 			Node<T> prevNode = deletedNode.prev;
 			Node<T> nextNode = deletedNode.next;
 			if ( prevNode != null ) {
-				prevNode.next = deletedNode.next; 
+				prevNode.next = deletedNode.next;
 			}
+			if (last == deletedNode) last = prevNode;
 			if ( nextNode != null ) {
-				nextNode.prev = deletedNode.prev; 
+				nextNode.prev = deletedNode.prev;
 			}
+			if (first == deletedNode) first = nextNode;
 			size--;
 			return true;
 		} else
