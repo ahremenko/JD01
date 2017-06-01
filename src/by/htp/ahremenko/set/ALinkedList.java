@@ -3,9 +3,9 @@ package by.htp.ahremenko.set;
 import by.htp.ahremenko.set.ATreeSet.Node;
 
 public class ALinkedList<T> {
-	private Node<T> first;
-	private Node<T> last;
-	private int size;
+	private volatile Node<T> first;
+	private volatile Node<T> last;
+	private volatile int size;
 	
 	public ALinkedList() {
 		size = 0;
@@ -66,7 +66,7 @@ public class ALinkedList<T> {
 		if (findedNode != null ) 
 			return findedNode.toStringOneEntity();
 		else 
-			return "Node [" + seekingEntity.toString() + "] not found!";
+			return "Node not found!";
 	}
 	
 	public Node<T> addAfter (T afterEntity, T newEntity) {

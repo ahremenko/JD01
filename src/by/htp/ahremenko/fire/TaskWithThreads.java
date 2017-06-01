@@ -9,28 +9,34 @@ import by.htp.ahremenko.threads.Warehouse;
 public class TaskWithThreads {
 
 	public static void main(String[] args) throws InterruptedException {
-		/*
+		
 		Warehouse wh = new Warehouse();
-		String[] Fruits = {"Orange", "Banana", "Strawberry", "Grapes", "Pomegranate", "Watermelon"};
+		//String[] Fruits = {"Orange", "Banana", "Strawberry", "Grapes", "Pomegranate", "Watermelon", "Pineapple", "Mango"};
 		
-		//wh.putFruit(Fruits[1]);
-		//wh.putFruit(Fruits[3]);
+		wh.putFruit(CargoTruck.Fruits[1], "");
+		wh.putFruit(CargoTruck.Fruits[3], "");
 		
-		System.out.println("On warehouse: " + wh.toString() + " size: " + wh.getStored());
+		//wh.getSpecFruit(Fruits[3]+"2", "");
 		
-		CargoTruck car1 = new CargoTruck();
-		CargoTruck car2 = new CargoTruck();
-		car1.setCarNumber("AA-1");
-		car1.setCarWH(wh);
-		car2.setCarNumber("BB-2");
-		car2.setCarWH(wh);
+		System.out.println("In warehouse: " + wh.toString() + " size: " + wh.getStored());
 		
-		System.out.println("Start working.");
+		CargoTruck car1 = new CargoTruck(wh, "AA-1");
+		
+		CargoTruck car2 = new CargoTruck(wh, "BB-2");
+		car2.setWantedFruit(CargoTruck.Fruits[1]);
+		car2.setCargoType("CONSUMER");
+		
+		CargoTruck car3 = new CargoTruck(wh, "CC-3");
+		car3.setWantedFruit(CargoTruck.Fruits[1]);
+		car3.setCargoType("PRODUCER");
+		
+		System.out.println("Start working...");
 		
 		car1.start();
 		car2.start();
-		*/
+		car3.start();
 		
+		/*
 		Account acc = new Account();
 		System.out.println(acc.toString());
 		OperatorDeposit op1 = new OperatorDeposit(acc);
@@ -43,7 +49,7 @@ public class TaskWithThreads {
 		t2.join(0);
 		System.out.println(" done.");
 		System.out.println(acc.toString());
-		
+		*/
 		
 	}
 }
