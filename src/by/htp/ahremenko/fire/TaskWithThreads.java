@@ -5,13 +5,17 @@ import by.htp.ahremenko.threads.CargoTruck;
 import by.htp.ahremenko.threads.OperatorDeposit;
 import by.htp.ahremenko.threads.OperatorWithdraw;
 import by.htp.ahremenko.threads.Warehouse;
+import by.htp.ahremenko.utl.FileRW;
 
 public class TaskWithThreads {
 
 	public static void main(String[] args) throws InterruptedException {
-		
-		Warehouse wh = new Warehouse();
+		FileRW logFile = new FileRW( "c:\\Temp\\log.csv" );
+		Warehouse wh = new Warehouse( logFile );
 		//String[] Fruits = {"Orange", "Banana", "Strawberry", "Grapes", "Pomegranate", "Watermelon", "Pineapple", "Mango"};
+		
+		
+		logFile.clearLog();
 		
 		wh.putFruit(CargoTruck.Fruits[1], "");
 		wh.putFruit(CargoTruck.Fruits[3], "");
@@ -19,18 +23,20 @@ public class TaskWithThreads {
 		//wh.getSpecFruit(Fruits[3]+"2", "");
 		
 		System.out.println("Warehouse {" + wh.getStored() + "} : " + wh.toString() );
+		logFile.writeLog("Warehouse {" + wh.getStored() + "} : " + wh.toString());
 		
-		CargoTruck car1 = new CargoTruck(wh, "AnyAction");
+		CargoTruck car1 = new CargoTruck(wh, "AnyAction", logFile);
 		
-		CargoTruck car2 = new CargoTruck(wh, "Consumer-Ban");
+		CargoTruck car2 = new CargoTruck(wh, "Consumer-Ban", logFile);
 		car2.setWantedFruit(CargoTruck.Fruits[1]);
 		car2.setCargoType("CONSUMER");
 		
-		CargoTruck car3 = new CargoTruck(wh, "Producer-Ban");
+		CargoTruck car3 = new CargoTruck(wh, "Producer-Ban", logFile);
 		car3.setWantedFruit(CargoTruck.Fruits[1]);
 		car3.setCargoType("PRODUCER");
 		
 		System.out.println("Start working...");
+		logFile.writeLog("Start working...");
 		
 		car1.start();
 		car2.start();

@@ -2,6 +2,7 @@ package by.htp.ahremenko.threads;
 
 import by.htp.ahremenko.set.ALinkedList;
 import by.htp.ahremenko.set.ALinkedList.Node;
+import by.htp.ahremenko.utl.FileRW;
 
 public class Warehouse {
 	/// jenkov.com - java memory model
@@ -12,20 +13,23 @@ public class Warehouse {
 	private volatile ALinkedList<String> allowedFruits;
 	private volatile int stored;
 	private final int WH_MAX_SIZE = 5;
+	private FileRW logFile;
 	
 	public int getStored() {
 		return stored;
 	}
 
-	public Warehouse() {
-		allowedFruits = new ALinkedList();
+	public Warehouse( FileRW lf ) { 
+		allowedFruits = new ALinkedList<String>();
 		this.stored = 0;
+		logFile = lf;
 	}
 	
 	public synchronized void putFruit (String newFruit, String info) {
 		while (this.stored >= this.WH_MAX_SIZE) {
 			try {
 				wait();
+				logFile.writeLog("You were riched MAX_SIZE. Please, wait... [" + info + "]");
 				System.out.println("You were riched MAX_SIZE. Please, wait... [" + info + "]");
 			} catch (InterruptedException e) {e.printStackTrace();}            		
 		}
@@ -41,6 +45,7 @@ public class Warehouse {
 			if (!ret.equals("")) break; 
 			try {
 				wait();
+				logFile.writeLog("There are no fruits in Warehouse! [" + info + "]");
 				System.out.println( "There are no fruits in Warehouse! [" + info + "]");
 			} catch (InterruptedException e) {}
 		}	
@@ -56,6 +61,7 @@ public class Warehouse {
 			if (!ret.contains(wantedFruit)) {
 				ret = "";
 				try {
+					logFile.writeLog("Fruit " + wantedFruit + " not found in Warehouse! [" + info + "]");
 					System.out.println("Fruit " + wantedFruit + " not found in Warehouse! [" + info + "]");
 					wait();
 				} catch (InterruptedException e) {}

@@ -2,6 +2,8 @@ package by.htp.ahremenko.threads;
 
 import java.util.Random;
 
+import by.htp.ahremenko.utl.FileRW;
+
 public class CargoTruck extends Thread {
 	
 	private enum CargoType { PRODUCER, CONSUMER }
@@ -10,6 +12,7 @@ public class CargoTruck extends Thread {
 	private String wantedFruit;
 	private CargoType truckType;
 	public static final String[] Fruits = {"Orange", "Banana", "Strawberry", "Grapes", "Pomegranate", "Watermelon", "Pineapple", "Mango"};
+	private FileRW logFile;
 	
 	{
 		carNumber = "";
@@ -17,9 +20,10 @@ public class CargoTruck extends Thread {
 		truckType = null;
 	}
 	
-	public CargoTruck (Warehouse carWH, String carNumber) {
+	public CargoTruck (Warehouse carWH, String carNumber, FileRW lf) {
 		this.carWH = carWH;
 		this.carNumber = carNumber;
+		this.logFile = lf;
 	}
 	
 	public String getCarNumber() {
@@ -94,11 +98,13 @@ public class CargoTruck extends Thread {
     		Fruit = carWH.getSpecFruit(wantedFruit, "Stage #" + i + " Truck  #" + this.carNumber);
     	else
     		Fruit = carWH.getFruit("Stage #" + i + " Truck  #" + this.carNumber);
+    	logFile.writeLog("Stage " + i + ". Truck  #" + this.carNumber + " gets: " + Fruit + ". Warehouse {" + carWH.getStored() + "}: " + carWH.toString());
  	    System.out.println("Stage " + i + ". Truck  #" + this.carNumber + " gets: " + Fruit + ". Warehouse {" + carWH.getStored() + "}: " + carWH.toString());
 	}
 
 	public void putFruitInWarehouse( int i, String Fruit) {
     	carWH.putFruit(Fruit, "Stage #" + i + " Truck  #" + this.carNumber );
+    	logFile.writeLog("Stage " + i + ". Truck  #" + this.carNumber + " puts: " + Fruit + ". Warehouse {" + carWH.getStored() + "}: " + carWH.toString());
     	System.out.println("Stage " + i + ". Truck  #" + this.carNumber + " puts: " + Fruit + ". Warehouse {" + carWH.getStored() + "}: " + carWH.toString());            	
 	}
 	
